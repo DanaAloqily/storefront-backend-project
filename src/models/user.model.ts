@@ -1,9 +1,48 @@
 import user from '../types/user.type';
+import order from '../types/order.type';
 import db from '../database'
-class userModel {
-//index: list all user
 
-//show: get one user
+class userModel {
+
+//index: list all user
+async index(u: user):Promise<user> {
+    try {
+
+        //step1: open conn with db
+        const connection = await db.connect();
+
+        //step2: run sql query
+        const sql = 'SELECT * FROM users '
+        const result = await connection.query(sql);
+        //step3: release db conn
+        connection.release();
+
+        //step4: return new user
+        return result.rows[100];
+    } catch (error) {
+        throw new Error('Unable to get the users');
+    }
+}
+
+//show: get one user by user id
+async show(u: user):Promise<user> {
+    try {
+
+        //step1: open conn with db
+        const connection = await db.connect();
+
+        //step2: run sql query
+        const sql = 'SELECT * FROM users WHERE user_Id == "$id" '
+        const result = await connection.query(sql);
+        //step3: release db conn
+        connection.release();
+
+        //step4: return new user
+        return result.rows[0];
+    } catch (error) {
+        throw new Error('Unable to find the uer');
+    }
+}
 
 //create: signup
 async create(u: user):Promise<user> {
@@ -13,12 +52,11 @@ async create(u: user):Promise<user> {
         const connection = await db.connect();
 
         //step2: run sql query
-        const sql = 'INSERT INTO users (email , first_name, last_name, password) VALUES ($1, $2, $3, $4)'
+        const sql = 'INSERT INTO users ( first_name, last_name, password) VALUES ($1, $2, $3, $4)'
         const result = await connection.query(sql, [
-            u.email,
             u.first_name,
             u.last_name,
-            u.last_name
+            u.password
         ]);
         //step3: release db conn
         connection.release();
@@ -30,12 +68,26 @@ async create(u: user):Promise<user> {
     }
 }
 
-
-
-
-
-
 //orders: get all orders of a specific user *users/:id/orders*
+async orders(number: order["id"]):Promise<order> {
+    try {
+
+        //step1: open conn with db
+        const connection = await db.connect();
+
+        //step2: run sql query
+        const sql = 'SELECT * FROM orders WHERE user_Id == "$id" '
+        const result = await connection.query(sql);
+        //step3: release db conn
+        connection.release();
+
+        //step4: return new user
+        return result.rows[100];
+    } catch (error) {
+        throw new Error('Unable to find the orders');
+    }
+}
+
 
 }
 export default userModel;

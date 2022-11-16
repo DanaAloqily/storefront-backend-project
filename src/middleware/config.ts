@@ -15,7 +15,7 @@ const {
     POSTGRES_PASSWORD} = process.env;
 
 export default {
-    
+    env:NODE_env,
     port: PORT,
     host: POSTGRES_HOST,
     dbport:POSTGRES_PORT,

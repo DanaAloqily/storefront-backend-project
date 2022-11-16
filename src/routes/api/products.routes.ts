@@ -1,6 +1,6 @@
 import {Router} from 'express';
 
-const user_routes = Router();
+const products_routes = Router();
 
 
 //routes.get(./ , );
@@ -8,4 +8,4 @@ const user_routes = Router();
 //...
 
 
-export default user_routes;
+export default products_routes;
