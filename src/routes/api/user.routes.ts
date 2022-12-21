@@ -1,9 +1,15 @@
-import {Router} from 'express';
+import express, { Request, Response } from 'express';
 
-const user_routes = Router();
+const user_routes = express.Router();
 
 
-//routes.get(./ , );
+user_routes.get('./' , (req:Request, res:Response) =>{
+
+res.json({
+    message: 'Hello World from users',
+});
+
+} );
 //routes.post(./ , );
 //...
 
